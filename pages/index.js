@@ -549,7 +549,7 @@ __PURCHASE_HISTORY_ANALYSIS__
     },
     {
         id: 'final_meta',
-        text: (userResponses) => `Thank you for experiencing 'Lost Diary', ${userResponses.userName}.\n\nDate completed: April 5, 2025 \nThe same date as the tragedy in Lin's story. \nThe same date as today. \n\nCoincidence?`,
+        text: (userResponses) => `Thank you for experiencing 'Lost Diary', ${userResponses.userName}.\n\nDate completed: April 5, 2025 \nThe same date as the tragedy in Lin's story. \n\nThe same date as today. \n\nCoincidence?`,
         buttonText: 'Return to Reality',
         nextId: 'intro'
     },
