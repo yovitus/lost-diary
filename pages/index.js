@@ -519,7 +519,13 @@ __PURCHASE_HISTORY_ANALYSIS__
     },
     {
         id: 'real_world_context',
-        text: "REAL WORLD CONTEXT:\n\nWhile Lin's story is fictional, similar tragedies occur regularly in global manufacturing:\n\n• Foxconn Factory Suicides (2010-2016): At least 14 deaths at electronics manufacturing facilities in China producing components for major tech brands. Workers faced extreme pressure, long hours, and toxic conditions.\n\n• Garment Factory Disasters (Bangladesh, Pakistan): Fires and building collapses at Tazreen Fashions (2012), Ali Enterprises (2012), and Rana Plaza (2013) claimed thousands of lives, including child workers locked inside facilities with barred windows and blocked exits.\n\n• Tantalum Mining in Congo: Children as young as 7 mine minerals for electronics in dangerous conditions. An estimated 40,000 children work in Congolese mines that supply components for devices like the one you're using now.\n\n• Electronics Factory Fires (Malaysia, India): Multiple fires in electronics manufacturing facilities have occurred in recent years, often linked to unsafe working conditions and locked exits.",
+        text: "REAL WORLD CONTEXT:\n\nWhile Lin's story is fictional, similar tragedies occur regularly in global manufacturing:",
+        bulletPoints: [
+            "Foxconn Factory Suicides (2010-2016): At least 14 deaths at electronics manufacturing facilities in China producing components for major tech brands. Workers faced extreme pressure, long hours, and toxic conditions.",
+            "Garment Factory Disasters (Bangladesh, Pakistan): Fires and building collapses at Tazreen Fashions (2012), Ali Enterprises (2012), and Rana Plaza (2013) claimed thousands of lives, including child workers locked inside facilities with barred windows and blocked exits.",
+            "Tantalum Mining in Congo: Children as young as 7 mine minerals for electronics in dangerous conditions. An estimated 40,000 children work in Congolese mines that supply components for devices like the one you're using now.",
+            "Electronics Factory Fires (Malaysia, India): Multiple fires in electronics manufacturing facilities have occurred in recent years, often linked to unsafe working conditions and locked exits."
+        ],
         nextId: 'consumer_reflection'
     },
     {
@@ -529,7 +535,15 @@ __PURCHASE_HISTORY_ANALYSIS__
     },
     {
         id: 'action_prompt',
-        text: "WHAT CAN YOU DO?\n\n• Research the brands you purchase from and their supply chain transparency\n• Support organizations fighting for workers' rights in manufacturing\n• Extend the life of your devices instead of upgrading frequently\n• Demand transparency from companies about working conditions\n• Share this knowledge with others\n\nRemember: A different world is possible, but only if we recognize our role in creating it.",
+        text: "WHAT CAN YOU DO?",
+        bulletPoints: [
+            "Research the brands you purchase from and their supply chain transparency",
+            "Support organizations fighting for workers' rights in manufacturing",
+            "Extend the life of your devices instead of upgrading frequently", 
+            "Demand transparency from companies about working conditions",
+            "Share this knowledge with others"
+        ],
+        footer: "Remember: A different world is possible, but only if we recognize our role in creating it.",
         buttonText: 'Close the Diary',
         nextId: 'final_meta'
     },
@@ -547,7 +561,14 @@ __PURCHASE_HISTORY_ANALYSIS__
     },
     {
         id: 'resources',
-        text: "RESOURCES FOR FURTHER INVESTIGATION:\n\n• International Labour Organization: Child Labour\n• Electronics Watch: Fair Electronics Production\n• Clean Clothes Campaign: Supply Chain Transparency\n• Good Electronics Network\n\nCreating ethical technology requires questioning not just what we build, but how we build it, and who pays the price.",
+        text: "RESOURCES FOR FURTHER INVESTIGATION:",
+        bulletPoints: [
+            "International Labour Organization: Child Labour",
+            "Electronics Watch: Fair Electronics Production",
+            "Clean Clothes Campaign: Supply Chain Transparency",
+            "Good Electronics Network"
+        ],
+        footer: "Creating ethical technology requires questioning not just what we build, but how we build it, and who pays the price.",
         buttonText: 'Restart Experience',
         nextId: 'intro'
     }
@@ -670,29 +691,90 @@ __PURCHASE_HISTORY_ANALYSIS__
     if (isSystemMessage) {
       return <div className="system-text">{processedText}</div>;
     }
+
+    // Check if this segment has bullet points
+    if (segment.bulletPoints && segment.bulletPoints.length > 0) {
+      return (
+        <>
+          <div>{processedText}</div>
+          <ul className="bullet-list">
+            {segment.bulletPoints.map((item, index) => (
+              <li key={`bullet-${index}`}>{item}</li>
+            ))}
+          </ul>
+          {segment.footer && <div className="list-footer">{segment.footer}</div>}
+        </>
+      );
+    }
+
+    // Process the text and handle bullet points for other segments
+    const sections = processedText.split('\n\n');
     
-    return processedText.split('\n').map((line, index) => {
-      if (isDiaryEntry(line)) {
-        return (
-          <span key={index} className="diary-entry">
-            {line}
-          </span>
-        );
-      } else if (index > 0 && isDiaryEntry(processedText.split('\n')[index-1])) {
-        return (
-          <span key={index} className="diary-content">
-            {line}
-          </span>
-        );
-      } else {
-        return (
-          <span key={index}>
-            {line}{index < processedText.split('\n').length - 1 ? <br /> : ''}
-          </span>
-        );
-      }
+    return sections.map((section, sectionIndex) => {
+      const lines = section.split('\n');
+      
+      // Process sections that might contain bullet points
+      return (
+        <span key={sectionIndex} className="text-section">
+          {lines.map((line, lineIndex) => {
+            // Check if this is the start of a bulleted list section
+            if (line.trim() === "WHAT CAN YOU DO?" || line.trim() === "RESOURCES FOR FURTHER INVESTIGATION:") {
+              return <span key={`title-${lineIndex}`} className="list-title">{line}</span>;
+            }
+            
+            // Handle diary entries
+            if (isDiaryEntry(line)) {
+              return <span key={`diary-${lineIndex}`} className="diary-entry">{line}</span>;
+            } 
+            
+            // Handle content after diary entries
+            if (lineIndex > 0 && isDiaryEntry(lines[lineIndex-1])) {
+              return <span key={`diary-content-${lineIndex}`} className="diary-content">{line}</span>;
+            }
+            
+            // Check if line starts with a bullet point
+            if (line.trim().startsWith('•')) {
+              // Check if we need to start a new list
+              const prevLine = lineIndex > 0 ? lines[lineIndex-1] : '';
+              const isNewList = !prevLine.trim().startsWith('•');
+              
+              // If this is a new list, start creating the list
+              if (isNewList) {
+                // Find all consecutive bullet point lines
+                const bulletLines = [];
+                let i = lineIndex;
+                while (i < lines.length && lines[i].trim().startsWith('•')) {
+                  // Remove the bullet character and trailing space for each line
+                  const cleanLine = lines[i].trim().replace(/^•\s*/, '');
+                  bulletLines.push(cleanLine);
+                  i++;
+                }
+                
+                // Return a proper HTML unordered list
+                return (
+                  <ul key={`list-${lineIndex}`} className="bullet-list">
+                    {bulletLines.map((item, itemIndex) => (
+                      <li key={`item-${itemIndex}`}>{item}</li>
+                    ))}
+                  </ul>
+                );
+              }
+              
+              // Skip bullet points that were already processed
+              return null;
+            }
+            
+            // Regular text lines
+            return (
+              <span key={`line-${lineIndex}`}>
+                {line}{lineIndex < lines.length - 1 && !lines[lineIndex+1].trim().startsWith('•') ? <br /> : ''}
+              </span>
+            );
+          }).filter(Boolean)} {/* Filter out null values */}
+        </span>
+      );
     });
-  }, [processedText, segment.id]);
+  }, [processedText, segment.id, segment.bulletPoints, segment.footer]);
 
   return (
     <div className="container">
@@ -1075,6 +1157,53 @@ __PURCHASE_HISTORY_ANALYSIS__
         
         .story-text {
           animation: textShadowPulse 4s infinite;
+        }
+
+        /* Standard list styling */
+        .story-text ul {
+          list-style-type: disc;
+          padding-left: 2rem;
+          margin: 1rem 0;
+        }
+        
+        .story-text li {
+          margin-bottom: 0.5rem;
+          padding-left: 0.5rem;
+          text-indent: -0.5rem;
+        }
+        
+        /* Fix bullet point text alignment for wrapped lines */
+        .bullet-list {
+          list-style-type: none;
+          padding-left: 0.5rem;
+          margin: 1rem 0;
+        }
+        
+        .bullet-list li {
+          position: relative;
+          padding-left: 1.5rem;
+          margin-bottom: 0.8rem;
+          line-height: 1.4;
+        }
+        
+        .bullet-list li:before {
+          content: "";  /* Removed the bullet character "•" here */
+          position: absolute;
+          left: 0;
+          color: #e3c27a;
+        }
+        
+        .list-title {
+          display: block;
+          font-weight: 600;
+          margin-bottom: 1rem;
+          color: #e3c27a;
+        }
+        
+        .list-footer {
+          margin-top: 1.5rem;
+          font-style: italic;
+          color: #d2c4a8;
         }
       `}</style>
     </div>
