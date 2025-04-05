@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Next.js build output
+.next/
+out/
+
+# Production build output
+build/
+dist/
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env*.local
+.env
+
+# Vercel folder
+.vercel/
+
+# macOS specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VSCode specific files
+.vscode/
