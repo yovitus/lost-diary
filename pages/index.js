@@ -557,7 +557,6 @@ __PURCHASE_HISTORY_ANALYSIS__
     {
         id: 'final_meta',
         text: (userResponses) => {
-            // Using explicit line breaks with JSX format for better rendering
             return (
                 <>
                     <p>Thank you for experiencing 'Lost Diary', {userResponses.userName}.</p>
@@ -693,9 +692,7 @@ __PURCHASE_HISTORY_ANALYSIS__
     return processText(segment.text);
   }, [segment.text, userResponses]);
   
-  // Memoize the text rendering to prevent unnecessary rerenders
   const renderedText = useMemo(() => {
-    // Check if the current segment is a system message by ID
     const isSystemMessage = segment.id.includes('meta_') || 
                             segment.id === 'consumer_intro' || 
                             segment.id === 'consumer_responsibility' || 
@@ -706,7 +703,6 @@ __PURCHASE_HISTORY_ANALYSIS__
                             segment.id === 'connection_attempt' ||
                             segment.id === 'ethical_consumer_system';
     
-    // If processedText is not a string (i.e., it's a JSX element), return it directly
     if (typeof processedText !== 'string') {
       return processedText;
     }
@@ -715,7 +711,6 @@ __PURCHASE_HISTORY_ANALYSIS__
       return <div className="system-text">{processedText}</div>;
     }
 
-    // Check if this segment has bullet points
     if (segment.bulletPoints && segment.bulletPoints.length > 0) {
       return (
         <>
@@ -730,50 +725,39 @@ __PURCHASE_HISTORY_ANALYSIS__
       );
     }
 
-    // Process the text and handle bullet points for other segments
     const sections = processedText.split('\n\n');
     
     return sections.map((section, sectionIndex) => {
       const lines = section.split('\n');
       
-      // Process sections that might contain bullet points
       return (
         <span key={sectionIndex} className="text-section">
           {lines.map((line, lineIndex) => {
-            // Check if this is the start of a bulleted list section
             if (line.trim() === "WHAT CAN YOU DO?" || line.trim() === "RESOURCES FOR FURTHER INVESTIGATION:") {
               return <span key={`title-${lineIndex}`} className="list-title">{line}</span>;
             }
             
-            // Handle diary entries
             if (isDiaryEntry(line)) {
               return <span key={`diary-${lineIndex}`} className="diary-entry">{line}</span>;
             } 
             
-            // Handle content after diary entries
             if (lineIndex > 0 && isDiaryEntry(lines[lineIndex-1])) {
               return <span key={`diary-content-${lineIndex}`} className="diary-content">{line}</span>;
             }
             
-            // Check if line starts with a bullet point
             if (line.trim().startsWith('•')) {
-              // Check if we need to start a new list
               const prevLine = lineIndex > 0 ? lines[lineIndex-1] : '';
               const isNewList = !prevLine.trim().startsWith('•');
               
-              // If this is a new list, start creating the list
               if (isNewList) {
-                // Find all consecutive bullet point lines
                 const bulletLines = [];
                 let i = lineIndex;
                 while (i < lines.length && lines[i].trim().startsWith('•')) {
-                  // Remove the bullet character and trailing space for each line
                   const cleanLine = lines[i].trim().replace(/^•\s*/, '');
                   bulletLines.push(cleanLine);
                   i++;
                 }
                 
-                // Return a proper HTML unordered list
                 return (
                   <ul key={`list-${lineIndex}`} className="bullet-list">
                     {bulletLines.map((item, itemIndex) => (
@@ -783,11 +767,9 @@ __PURCHASE_HISTORY_ANALYSIS__
                 );
               }
               
-              // Skip bullet points that were already processed
               return null;
             }
             
-            // Regular text lines
             return (
               <span key={`line-${lineIndex}`}>
                 {line}{lineIndex < lines.length - 1 && !lines[lineIndex+1].trim().startsWith('•') ? <br /> : ''}
@@ -879,7 +861,6 @@ __PURCHASE_HISTORY_ANALYSIS__
             </div>
           )}
           
-          {/* Standalone back button that appears below choices and text input */}
           {(segment.choices || segment.inputRequired) && history.length > 0 && (
             <button 
               onClick={handleBackClick}
