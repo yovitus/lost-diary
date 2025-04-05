@@ -65,7 +65,18 @@ const storySegments = [
   { id: 'ethical_consumer_system', text: "SYSTEM: This device contains components manufactured in facilities with documented human rights concerns.", nextId: 'ethical_consumer_question' },
   { id: 'ethical_consumer_question', text: "Do you know where your electronics come from?", nextId: 'action_prompt' },
   { id: 'action_prompt', text: "WHAT CAN YOU DO?", buttonText: 'Close the Diary', nextId: 'final_meta' },
-  { id: 'final_meta', text: "Thank you for experiencing 'Lost Diary'", buttonText: 'Return to Reality', nextId: 'intro' },
+  { id: 'final_meta', text: (userResponses) => {
+      // Using explicit line breaks with JSX format for better rendering
+      return (
+          <>
+              <p>Thank you for experiencing 'Lost Diary', {userResponses.userName}.</p>
+              <p>Date completed: April 5, 2025</p>
+              <p>The same date as the tragedy in Lin's story.</p> 
+              <p>The same date as today.</p>
+              <p>Coincidence?</p>
+          </>
+      );
+  }, buttonText: 'Return to Reality', nextId: 'intro' },
 ];
 
 export default function Debug() {
@@ -95,6 +106,17 @@ export default function Debug() {
     segment.id.toLowerCase().includes(searchTerm.toLowerCase()) || 
     (typeof segment.text === 'string' && segment.text.toLowerCase().includes(searchTerm.toLowerCase()))
   );
+
+  // Helper function to safely display segment text preview
+  const getTextPreview = (text) => {
+    if (typeof text === 'string') {
+      return text.substring(0, 100) + (text.length > 100 ? '...' : '');
+    } else if (typeof text === 'function') {
+      return '[Function: Dynamic Content]';
+    } else {
+      return '[JSX Content]';
+    }
+  };
 
   return (
     <div className="debug-container">
@@ -143,7 +165,7 @@ export default function Debug() {
           <div key={segment.id} className="segment-item">
             <h4>{segment.id}</h4>
             <p>
-              {segment.text.substring(0, 100) + (segment.text.length > 100 ? '...' : '')}
+              {getTextPreview(segment.text)}
             </p>
             <div className="segment-details">
               {segment.nextId && <span>Next: {segment.nextId}</span>}

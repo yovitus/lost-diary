@@ -510,6 +510,13 @@ __PURCHASE_HISTORY_ANALYSIS__
     {
         id: 'segment12E',
         text: "I don't want to die.",
+        nextId: 'meta_final'
+    },
+    {
+        id: 'meta_final',
+        text: (userResponses) => `> TEMPORAL_CONNECTION_TERMINATED
+> ARCHIVE_MODE: [ACTIVE]
+> USER: "${userResponses.userName}"`,
         nextId: 'segment14'
     },
     {
@@ -549,7 +556,18 @@ __PURCHASE_HISTORY_ANALYSIS__
     },
     {
         id: 'final_meta',
-        text: (userResponses) => `Thank you for experiencing 'Lost Diary', ${userResponses.userName}.\n\nDate completed: April 5, 2025 \nThe same date as the tragedy in Lin's story. \n\nThe same date as today. \n\nCoincidence?`,
+        text: (userResponses) => {
+            // Using explicit line breaks with JSX format for better rendering
+            return (
+                <>
+                    <p>Thank you for experiencing 'Lost Diary', {userResponses.userName}.</p>
+                    <p>Date completed: April 5, 2025</p>
+                    <p>The same date as the tragedy in Lin's story.</p> 
+                    <p>The same date as today.</p>
+                    <p>Coincidence?</p>
+                </>
+            );
+        },
         buttonText: 'Return to Reality',
         nextId: 'intro'
     },
@@ -687,6 +705,11 @@ __PURCHASE_HISTORY_ANALYSIS__
                             segment.id === 'connection_lost' || 
                             segment.id === 'connection_attempt' ||
                             segment.id === 'ethical_consumer_system';
+    
+    // If processedText is not a string (i.e., it's a JSX element), return it directly
+    if (typeof processedText !== 'string') {
+      return processedText;
+    }
     
     if (isSystemMessage) {
       return <div className="system-text">{processedText}</div>;
