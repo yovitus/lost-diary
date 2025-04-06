@@ -127,7 +127,6 @@ const storySegments = [
         text: (userResponses) => {
           if (!storyDates) return "Loading...";
           const today = new Date();
-          // Get production month and year for the manufacturing timestamp
           const month = (today.getMonth() + 1).toString().padStart(2, '0');
           const year = today.getFullYear();
           
@@ -525,15 +524,12 @@ __PURCHASE_HISTORY_ANALYSIS__
         text: (userResponses) => {
           if (!storyDates) return "Loading...";
           
-          // Get current date and time from user's device
           const now = new Date();
           
-          // Format time as HH:MM:SS
           const hours = now.getHours().toString().padStart(2, '0');
           const minutes = now.getMinutes().toString().padStart(2, '0');
           const seconds = now.getSeconds().toString().padStart(2, '0');
           
-          // Format date as DD.MM.YYYY
           const day = now.getDate().toString().padStart(2, '0');
           const month = (now.getMonth() + 1).toString().padStart(2, '0');
           const year = now.getFullYear();
@@ -832,7 +828,6 @@ __PURCHASE_HISTORY_ANALYSIS__
     });
   }, [processedText, segment.id, segment.bulletPoints, segment.footer]);
 
-  // Video background component
   const videoBackground = (
     <div className="video-background">
       <video autoPlay muted loop>         
