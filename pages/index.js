@@ -832,8 +832,18 @@ __PURCHASE_HISTORY_ANALYSIS__
     });
   }, [processedText, segment.id, segment.bulletPoints, segment.footer]);
 
+  // Video background component
+  const videoBackground = (
+    <div className="video-background">
+      <video autoPlay muted loop>         
+        <source src="/videos/video-1.mp4" type="video/mp4"/>       
+      </video>
+    </div>
+  );
+
   return (
     <div className="container">
+      {videoBackground}
       <Head>
         <title>Lost Diary</title>
         <meta name="description" content="An interactive horror story" />
@@ -943,6 +953,27 @@ __PURCHASE_HISTORY_ANALYSIS__
           min-height: 100vh;
           display: flex;
           flex-direction: column;
+          position: relative;
+          z-index: 1;
+        }
+
+        .video-background {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          overflow: hidden;
+        }
+
+        .video-background video {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
         
         main {
