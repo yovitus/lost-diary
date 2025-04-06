@@ -124,12 +124,20 @@ const storySegments = [
     },
     {
         id: 'meta_device',
-        text: (userResponses) => `> SYSTEM_ANALYSIS.exe completed
+        text: (userResponses) => {
+          if (!storyDates) return "Loading...";
+          const today = new Date();
+          // Get production month and year for the manufacturing timestamp
+          const month = (today.getMonth() + 1).toString().padStart(2, '0');
+          const year = today.getFullYear();
+          
+          return `> SYSTEM_ANALYSIS.exe completed
 > TARGET_DEVICE: ${deviceInfo.deviceType || 'UNKNOWN_HARDWARE'}
 > COMPONENTS_SCAN: [████████████] 100%
 > ORIGIN_TRACE: manufacturing_zone "XR-7" [CLASSIFIED]
-> PRODUCTION_TIMESTAMP: 01.2025
-> CONNECTION_STATUS: ESTABLISHED`,
+> PRODUCTION_TIMESTAMP: ${month}.${year}
+> CONNECTION_STATUS: ESTABLISHED`;
+        },
         nextId: 'meta_diary_interface'
     },
     {
@@ -480,13 +488,31 @@ __PURCHASE_HISTORY_ANALYSIS__
     },
     {
         id: 'connection_attempt',
-        text: `> BRIDGE_RESTORATION.exe [ACTIVE]
+        text: (userResponses) => {
+          if (!storyDates) return "Loading...";
+          
+          // Get current date and time from user's device
+          const now = new Date();
+          
+          // Format time as HH:MM:SS
+          const hours = now.getHours().toString().padStart(2, '0');
+          const minutes = now.getMinutes().toString().padStart(2, '0');
+          const seconds = now.getSeconds().toString().padStart(2, '0');
+          
+          // Format date as Month.Day (April.6)
+          const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
+                             'July', 'August', 'September', 'October', 'November', 'December'];
+          const month = monthNames[now.getMonth()];
+          const day = now.getDate();
+          
+          return `> BRIDGE_RESTORATION.exe [ACTIVE]
 > REESTABLISHING_CONNECTION...
 > SIGNAL_SEARCH: [■■■■░░░░░░] 42%
-> TEMPORAL_COORDINATES: 04.05.2025 13:47:22
+> TEMPORAL_COORDINATES: ${month}.${day} ${hours}:${minutes}:${seconds}
 > INTEGRITY_CHECK: failed
 > ATTEMPTING_BACKUP_PROTOCOL...
-> FRAGMENTS_DETECTED...`,
+> FRAGMENTS_DETECTED...`;
+        },
         nextId: 'last_message'
     },
     {
@@ -496,15 +522,32 @@ __PURCHASE_HISTORY_ANALYSIS__
     },
     {
         id: 'consumer_responsibility',
-        text: (userResponses) => `> CRITICAL_CONNECTION_ALERT
-> SOURCE_IDENTIFICATION: [VERIFIED]
-> COMPONENT_ID: #XR7-2025-04-B
+        text: (userResponses) => {
+          if (!storyDates) return "Loading...";
+          
+          // Get current date and time from user's device
+          const now = new Date();
+          
+          // Format time as HH:MM:SS
+          const hours = now.getHours().toString().padStart(2, '0');
+          const minutes = now.getMinutes().toString().padStart(2, '0');
+          const seconds = now.getSeconds().toString().padStart(2, '0');
+          
+          // Format date as DD.MM.YYYY
+          const day = now.getDate().toString().padStart(2, '0');
+          const month = (now.getMonth() + 1).toString().padStart(2, '0');
+          const year = now.getFullYear();
+          const formattedDate = `${day}.${month}.${year}`;
+          
+          return `> SOURCE_IDENTIFICATION: [VERIFIED]
+> COMPONENT_ID: #XR7-2025-07-B
 > MANUFACTURER: Lin (ID: 12-1894)
-> DATE_STAMP: 04.02.2025/17:23:44
+> DATE_STAMP: ${formattedDate}/${hours}:${minutes}:${seconds}
 > STATUS: [DEFECTIVE] - Soldering error under duress
 > DEFECT_ANALYSIS: Direct contribution to system overload
 > FACILITY: XR-7 [CONFIRMED]
-> USER_DEVICE_MATCH: 100% [VERIFIED]`,
+> USER_DEVICE_MATCH: 100% [VERIFIED]`;
+        },
         nextId: 'segment12E'
     },
     {
@@ -514,10 +557,19 @@ __PURCHASE_HISTORY_ANALYSIS__
     },
     {
         id: 'meta_final',
-        text: (userResponses) => `> TEMPORAL_CONNECTION_TERMINATED
-> ARCHIVE_MODE: [ACTIVE]
-> USER: "${userResponses.userName}"`,
-        nextId: 'segment14'
+        text: (userResponses) => {
+            return (
+                <>
+                    <p>Thank you for experiencing 'Lost Diary', {userResponses.userName}.</p>
+                    <p>Date completed: {storyDates ? storyDates.today : 'today'}</p>
+                    <p>The same date as the tragedy in Lin's story.</p> 
+                    <p>The same date as today.</p>
+                    <p>Coincidence?</p>
+                </>
+            );
+        },
+        buttonText: 'Return to Reality',
+        nextId: 'intro'
     },
     {
         id: 'segment14',
@@ -560,7 +612,7 @@ __PURCHASE_HISTORY_ANALYSIS__
             return (
                 <>
                     <p>Thank you for experiencing 'Lost Diary', {userResponses.userName}.</p>
-                    <p>Date completed: April 5, 2025</p>
+                    <p>Date completed: {storyDates ? storyDates.today : 'today'}</p>
                     <p>The same date as the tragedy in Lin's story.</p> 
                     <p>The same date as today.</p>
                     <p>Coincidence?</p>
@@ -643,7 +695,6 @@ __PURCHASE_HISTORY_ANALYSIS__
       });
     };
     
-    // Cancel any existing animations
     if (fadeOutRef.current) {
       cancelAnimationFrame(fadeOutRef.current);
     }
