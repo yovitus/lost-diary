@@ -141,7 +141,10 @@ const storySegments = [
     },
     {
         id: 'meta_diary_interface',
-        text: "The interface you're seeing appears to be accessing archived data from a digital diary. Many of the files are corrupted. Date stamp shows these entries are from 2025.",
+        text: (userResponses) => {
+          const currentYear = new Date().getFullYear();
+          return `The interface you're seeing appears to be accessing archived data from a digital diary. Many of the files are corrupted. Date stamp shows these entries are from ${currentYear}.`;
+        },
         nextId: 'segment2A'
     },
     {
@@ -312,12 +315,12 @@ __PURCHASE_HISTORY_ANALYSIS__
     {
         id: 'segment5B',
         text: (userResponses) => `${userResponses.userName}, the doors are always locked. Once a boy tried to run when they opened the loading doors. They caught him. We never saw him again. Nobody tries anymore.`,
-        nextId: 'segment6'
+        nextId: 'consumer_reflection1'
     },
     {
         id: 'segment5C',
         text: "The supervisors aren't here to help us. They're here to make sure we work. There's a woman who brings food sometimes. Once she snuck me medicine when I was sick. She looked sad but didn't say anything.",
-        nextId: 'segment6'
+        nextId: 'consumer_reflection1'
     },
     {
         id: 'segment6',
@@ -490,15 +493,12 @@ __PURCHASE_HISTORY_ANALYSIS__
         text: (userResponses) => {
           if (!storyDates) return "Loading...";
           
-          // Get current date and time from user's device
           const now = new Date();
           
-          // Format time as HH:MM:SS
           const hours = now.getHours().toString().padStart(2, '0');
           const minutes = now.getMinutes().toString().padStart(2, '0');
           const seconds = now.getSeconds().toString().padStart(2, '0');
           
-          // Format date as Month.Day (April.6)
           const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
                              'July', 'August', 'September', 'October', 'November', 'December'];
           const month = monthNames[now.getMonth()];
@@ -549,7 +549,7 @@ __PURCHASE_HISTORY_ANALYSIS__
     {
         id: 'segment12E',
         text: "I don't want to die.",
-        nextId: 'meta_final'
+        nextId: 'segment14'
     },
     {
         id: 'meta_final',
