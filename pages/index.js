@@ -1,14 +1,9 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Head from 'next/head';
 import { storySegments, calculateStoryDates, formatDate, isDiaryEntry } from '../components/segments';
 
-// isDiaryEntry, formatDate, and calculateStoryDates are now imported from segments.js
-// No need to redefine them here
-
 export default function Home() {
   const [currentSegment, setCurrentSegment] = useState('intro');
-  const [userName, setUserName] = useState('');
-  const [userLocation, setUserLocation] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [userResponses, setUserResponses] = useState({});
   const [isAnimating, setIsAnimating] = useState(false);
@@ -33,14 +28,6 @@ export default function Home() {
         }
         
         if (debugUserResponses) {
-          if (debugUserResponses.userName) {
-            setUserName(debugUserResponses.userName);
-          }
-          
-          if (debugUserResponses.userLocation) {
-            setUserLocation(debugUserResponses.userLocation);
-          }
-          
           setUserResponses(debugUserResponses);
         }
         
@@ -159,10 +146,8 @@ export default function Home() {
   const handleInputSubmit = useCallback((inputFor) => {
     if (inputValue.trim()) {
       if (inputFor === 'userName') {
-        setUserName(inputValue);
         setUserResponses(prev => ({...prev, userName: inputValue}));
       } else if (inputFor === 'userLocation') {
-        setUserLocation(inputValue);
         setUserResponses(prev => ({...prev, userLocation: inputValue}));
       }
       setInputValue('');

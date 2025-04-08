@@ -15,8 +15,6 @@ const calculateStoryDates = () => {
   
   const totalDays = 24;
   
-  const finalDate = new Date(today);
-  
   const firstDate = new Date(today);
   firstDate.setDate(firstDate.getDate() - totalDays);
   
