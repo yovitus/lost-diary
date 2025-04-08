@@ -251,7 +251,7 @@ export default function Home() {
 
   const videoBackground = (
     <div className="video-background">
-      <video autoPlay muted loop>         
+      <video autoPlay muted loop playsInline disablePictureInPicture disableRemotePlayback>         
         <source src="/videos/video-1.mp4" type="video/mp4"/>       
       </video>
     </div>
