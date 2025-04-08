@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import Head from 'next/head';
-import { storySegments, calculateStoryDates, formatDate, isDiaryEntry } from '../components/segments';
+import { storySegments, calculateStoryDates, isDiaryEntry } from '../components/segments';
 
 export default function Home() {
   const [currentSegment, setCurrentSegment] = useState('intro');
