@@ -61,5 +61,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- Inspired by interactive fiction and horror narratives (At the dead of light)
+- Drawing inspiration from atmospheric interactive fiction like "At The Dead of Light," socially conscious games such as "Spent" that illuminate systemic inequalities, and the unflinching portrayal of civilian survival during conflict in "This War of Mine."
 - Created as a project for Playable Media course at the IT-University of copenhagen
