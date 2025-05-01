@@ -93,6 +93,11 @@ const storySegments = [
     {
         id: 'segment2C',
         text: (userResponses) => `${userResponses.userName}... That's a nice name. I've never met anyone called ${userResponses.userName} before. It's nice to meet you. I don't get to meet new people very often.`,
+        nextId: 'segment2C_work'
+    },
+    {
+        id: 'segment2C_work',
+        text: "I work in a factory. We make electronics. I don't know what that means, but they say it's important. I just do what I'm told. I hope you can hear me. I hope you're real.",
         nextId: 'meta_comment1'
     },
     {
