@@ -549,26 +549,6 @@ __PURCHASE_HISTORY_ANALYSIS__
         buttonText: 'End Experience',
         nextId: 'end_screen'
     },
-
-    // {
-    //     id: 'segment16',
-    //     text: "This experience was designed to provoke critical reflection on our relationship with technology and the hidden human costs of our digital world. The story may be over, but the issues it raises continue in reality.",
-    //     buttonText: 'Next',
-    //     nextId: 'resources'
-    // },
-    // {
-    //     id: 'resources',
-    //     text: "RESOURCES FOR FURTHER INVESTIGATION:",
-    //     bulletPoints: [
-    //         "International Labour Organization: Child Labour",
-    //         "Electronics Watch: Fair Electronics Production",
-    //         "Clean Clothes Campaign: Supply Chain Transparency",
-    //         "Good Electronics Network"
-    //     ],
-    //     footer: "Creating ethical technology requires questioning not just what we build, but how we build it, and who pays the price.",
-    //     buttonText: 'next',
-    //     nextId: 'end_screen'
-    // },
     {
         id: 'end_screen',
         text: "Do you want to play again?",
