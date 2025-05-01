@@ -531,44 +531,51 @@ __PURCHASE_HISTORY_ANALYSIS__
             "Share this knowledge with others"
         ],
         footer: "Remember: A different world is possible, but only if we recognize our role in creating it.",
-        buttonText: 'Close the Diary',
+        buttonText: 'Next',
         nextId: 'final_meta'
     },
     {
         id: 'final_meta',
         text: (userResponses, deviceInfo, storyDates) => {
-            return (
-                <>
-                    <p>Thank you for experiencing 'Lost Diary', {userResponses.userName}.</p>
-                    <p>Date completed: {storyDates ? storyDates.today : 'today'}</p>
-                    <p>The same date as the tragedy in Lin's story.</p> 
-                    <p>The same date as today.</p>
-                    <p>Coincidence?</p>
-                </>
-            );
+            return `Thank you for experiencing 'Lost Diary', ${userResponses.userName}.
+
+                    Date completed: ${storyDates ? storyDates.today : 'today'}
+
+                    The same date as the tragedy in Lin's story.
+                    The same date as today.
+
+                    Coincidence?`;
         },
-        buttonText: 'Return to Reality',
+        buttonText: 'End Experience',
+        nextId: 'end_screen'
+    },
+
+    // {
+    //     id: 'segment16',
+    //     text: "This experience was designed to provoke critical reflection on our relationship with technology and the hidden human costs of our digital world. The story may be over, but the issues it raises continue in reality.",
+    //     buttonText: 'Next',
+    //     nextId: 'resources'
+    // },
+    // {
+    //     id: 'resources',
+    //     text: "RESOURCES FOR FURTHER INVESTIGATION:",
+    //     bulletPoints: [
+    //         "International Labour Organization: Child Labour",
+    //         "Electronics Watch: Fair Electronics Production",
+    //         "Clean Clothes Campaign: Supply Chain Transparency",
+    //         "Good Electronics Network"
+    //     ],
+    //     footer: "Creating ethical technology requires questioning not just what we build, but how we build it, and who pays the price.",
+    //     buttonText: 'next',
+    //     nextId: 'end_screen'
+    // },
+    {
+        id: 'end_screen',
+        text: "Do you want to play again?",
+        
+        buttonText: "Play Again", 
         nextId: 'intro'
     },
-    {
-        id: 'segment16',
-        text: "This experience was designed to provoke critical reflection on our relationship with technology and the hidden human costs of our digital world. The story may be over, but the issues it raises continue in reality.",
-        buttonText: 'Close the Diary',
-        nextId: 'resources'
-    },
-    {
-        id: 'resources',
-        text: "RESOURCES FOR FURTHER INVESTIGATION:",
-        bulletPoints: [
-            "International Labour Organization: Child Labour",
-            "Electronics Watch: Fair Electronics Production",
-            "Clean Clothes Campaign: Supply Chain Transparency",
-            "Good Electronics Network"
-        ],
-        footer: "Creating ethical technology requires questioning not just what we build, but how we build it, and who pays the price.",
-        buttonText: 'Restart Experience',
-        nextId: 'intro'
-    }
 ];
 
 export { 
