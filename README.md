@@ -61,5 +61,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- Inspired by interactive fiction and horror narratives
-- Created as a project for Playable Media course
+- Inspired by interactive fiction and horror narratives (At the dead of light)
+- Created as a project for Playable Media course at the IT-University of copenhagen
