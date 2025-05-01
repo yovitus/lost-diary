@@ -506,13 +506,7 @@ __PURCHASE_HISTORY_ANALYSIS__
     },
     {
         id: 'real_world_context',
-        text: "REAL WORLD CONTEXT:\n\nWhile Lin's story is fictional, similar tragedies occur regularly in global manufacturing:",
-        bulletPoints: [
-            "Foxconn Factory Suicides (2010-2016): At least 14 deaths at electronics manufacturing facilities in China producing components for major tech brands. Workers faced extreme pressure, long hours, and toxic conditions.",
-            "Garment Factory Disasters (Bangladesh, Pakistan): Fires and building collapses at Tazreen Fashions (2012), Ali Enterprises (2012), and Rana Plaza (2013) claimed thousands of lives, including child workers locked inside facilities with barred windows and blocked exits.",
-            "Tantalum Mining in Congo: Children as young as 7 mine minerals for electronics in dangerous conditions. An estimated 40,000 children work in Congolese mines that supply components for devices like the one you're using now.",
-            "Electronics Factory Fires (Malaysia, India): Multiple fires in electronics manufacturing facilities have occurred in recent years, often linked to unsafe working conditions and locked exits."
-        ],
+        text: "REAL WORLD CONTEXT:\n\nWhile Lin's story is fictional, it reflects documented realities across global supply chains. Child labor remains a serious issue in various manufacturing sectors worldwide. From mineral extraction to electronics assembly, exploitative labor practices persist despite regulations. The electronics industry in particular faces ongoing scrutiny for working conditions throughout its supply chain. Factory fires, safety violations, and hazardous working environments continue to affect vulnerable populations, including children. These issues exist not as isolated incidents but as systemic challenges in a global manufacturing system that often prioritizes production speed and cost efficiency over human welfare.",
         nextId: 'consumer_reflection'
     },
     {
