@@ -31,7 +31,7 @@ Lost Diary is an interactive fiction experience built with Next.js. The story fo
 
 1. Clone the repository
    ```
-   git clone https://github.com/yourusername/lost-diary.git
+   git clone https://github.com/yovitus/lost-diary.git
    ```
 
 2. Navigate to the project directory
@@ -53,7 +53,7 @@ Lost Diary is an interactive fiction experience built with Next.js. The story fo
 
 ## Deployment
 
-This project can be easily deployed to Vercel or any other Next.js-compatible hosting service.
+This project is deployed to and hosted on Vercel [lost-diary.vercel.app](https://lost-diary.vercel.app)
 
 ## License
 
