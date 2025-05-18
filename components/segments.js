@@ -485,7 +485,10 @@ __PURCHASE_HISTORY_ANALYSIS__
     },
     {
         id: 'segment14',
-        text: "April 5, 2025: Industrial Fire at Electronics Manufacturing Facility Claims 43 Lives\n\nAn explosion and subsequent fire at an unregistered electronics manufacturing facility in [REDACTED] has resulted in the deaths of 43 individuals, most of them children between the ages of 8-14. Authorities discovered the facility was operating illegally and employing child labor in hazardous conditions. Initial investigations suggest safety regulations were ignored to meet production quotas for consumer electronics components. The facility's operators fled the scene prior to the explosion, leaving all exits locked. There were no survivors.\n\nComponents from this facility were reportedly supplied to multiple major tech corporations. Advocacy groups are calling for increased transparency in electronics supply chains.",
+        text: (userResponses, deviceInfo, storyDates) => {
+          if (!storyDates) return "Loading...";
+          return `${storyDates.today}: Industrial Fire at Electronics Manufacturing Facility Claims 43 Lives\n\nAn explosion and subsequent fire at an unregistered electronics manufacturing facility in [REDACTED] has resulted in the deaths of 43 individuals, most of them children between the ages of 8-14. Authorities discovered the facility was operating illegally and employing child labor in hazardous conditions. Initial investigations suggest safety regulations were ignored to meet production quotas for consumer electronics components. The facility's operators fled the scene prior to the explosion, leaving all exits locked. There were no survivors.\n\nComponents from this facility were reportedly supplied to multiple major tech corporations. Advocacy groups are calling for increased transparency in electronics supply chains.`;
+        },
         nextId: 'real_world_context'
     },
     {
