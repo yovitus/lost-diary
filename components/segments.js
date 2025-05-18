@@ -518,14 +518,15 @@ __PURCHASE_HISTORY_ANALYSIS__
     {
         id: 'final_meta',
         text: (userResponses, deviceInfo, storyDates) => {
-            return `Thank you for experiencing 'Lost Diary', ${userResponses.userName}.
-
-                    Date completed: ${storyDates ? storyDates.today : 'today'}
-
-                    The same date as the tragedy in Lin's story.
-                    The same date as today.
-
-                    Coincidence?`;
+            return (
+                <>
+                    <p>Thank you for experiencing 'Lost Diary', {userResponses.userName}.</p>
+                    <p>Date completed: {storyDates ? storyDates.today : 'today'}</p>
+                    <p>The same date as the tragedy in Lin's story.</p>
+                    <p>The same date as today.</p>
+                    <p>Coincidence?</p>
+                </>
+            );
         },
         buttonText: 'End Experience',
         nextId: 'end_screen'
