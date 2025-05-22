@@ -29,27 +29,45 @@ Lost Diary is an interactive fiction experience built with Next.js. The story fo
 
 ### Installation
 
-1. Clone the repository
+Optional - Clone the repository
    ```
    git clone https://github.com/yovitus/lost-diary.git
    ```
 
-2. Navigate to the project directory
+1. Navigate to the project directory
    ```
    cd lost-diary
    ```
 
-3. Install dependencies
+2. Install dependencies
    ```
    npm install
    ```
 
-4. Run the development server
+3. Run the development server
    ```
    npm run dev
    ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser to experience the story.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to experience the story.
+
+### If it does not run after npm run dev
+
+If the project do not run on your Macbook device, its due to Apple's quarantine (a macOS security feature that flags files downloaded from the internet or transferred from external sources) (“next-swc.darwin-arm64.node”).
+
+1. Simply navigate to the project directory:
+   ```
+   cd lost-diary
+   ```
+2. Type in the terminal
+   ```
+   xattr -dr com.apple.quarantine .
+   ```
+3. Run the development server again
+   ```
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to experience the story.
 
 ## Deployment
 
